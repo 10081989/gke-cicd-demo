@@ -1,16 +1,18 @@
 steps:
-  # Build Docker image
+  # Build
   - name: 'gcr.io/cloud-builders/docker'
     args:
     - 'build'
     - '-t'
     - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
     - '.'
-  # Push to Artifact Registry
+  # Push
   - name: 'gcr.io/cloud-builders/docker'
-    args:
-    - 'push'
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA']
+    
+options:
+  logging: CLOUD_LOGGING_ONLY  # ← FIX ADDED
+
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
 timeout: 1200s
