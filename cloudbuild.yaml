@@ -1,33 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: hello-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: hello-app
-  template:
-    metadata:
-      labels:
-        app: hello-app
-    spec:
-      containers:
-      - name: hello-app
-        image: hello-app  # Cloud Deploy replaces with SHA
-        ports:
-        - containerPort: 8080  # ← PASTE HERE
-        
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hello-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: hello-app
-  ports:
-  - port: 80           # Browser URL
-    targetPort: 8080    # Container port
-
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '-t'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
+    - '.'
+  # Push to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA'
+timeout: 1200s
