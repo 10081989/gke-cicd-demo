@@ -1,1 +1,16 @@
+# Deployment
+metadata:
+  labels:
+    app: hello-pipeline-dev  # ← Match service selector
+  
+spec:
+  template:
+    metadata:
+      labels:
+        app: hello-pipeline-dev  # ← Match service selector
+
+# Service  
+spec:
+  selector:
+    app: hello-pipeline-dev  # Already correct
 
