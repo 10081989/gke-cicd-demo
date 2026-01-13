@@ -1,15 +1,18 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA', '.']
+  args:
+  - build
+  - -t
+  - us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA
+  - .
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA']
-images: ['us-central1-docker.pkg.dev/$PROJECT_ID/hello-repo/app:$COMMIT_SHA']
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA', '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA']
+  args:
+  - push
+  - us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA
+
 options:
   logging: GCS_ONLY
-  logBucket: gs://peaceful-signer-481816-n7-build-logs
-images: ['us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA']
+  gcsLogDir: gs://peaceful-signer-481816-n7-build-logs/
+
+images:
+- us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app:$COMMIT_SHA
