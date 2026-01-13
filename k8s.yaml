@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: us-central1-docker.pkg.dev/peaceful-signer-481816-n7/hello-repo/app
+        image: us-central1-docker.pkg.dev/.../app:ed4c477c35c6a7208f2c7f2fea62180ba4df88bb37c4846e7fbfc2
 ---
 apiVersion: v1
 kind: Service
