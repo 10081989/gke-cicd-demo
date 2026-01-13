@@ -1,5 +1,7 @@
-containers:
-  - name: hello-app
-    image: us-central1-docker.pkg.dev/.../app@sha256:...
-    ports:
-      - containerPort: 8080
+apiVersion: skaffold/v4beta2
+kind: Config
+manifests:
+  rawYaml:
+  - deployment.yaml  # Your service here too
+deploy:
+  kubectl: {}
