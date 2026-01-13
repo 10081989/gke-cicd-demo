@@ -1,5 +1,5 @@
-apiVersion: skaffold/v4beta7
-kind: Config
-manifests:
-  rawYaml:
-  - k8s.yaml
+containers:
+  - name: hello-app
+    image: us-central1-docker.pkg.dev/.../app@sha256:...
+    ports:
+      - containerPort: 8080
