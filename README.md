@@ -1,1 +1,0 @@
-# gke-cicd-demo
